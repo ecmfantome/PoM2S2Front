@@ -40,7 +40,7 @@ export default function EditUserPage() {
   // Fetch existing user
   useEffect(() => {
     async function fetchUser() {
-      const res = await fetch(`/api/admin/user/${userId}`);
+      const res = await fetch(`/api/admin/users/${userId}`);
       const data = await res.json();
 
       if (!res.ok) {

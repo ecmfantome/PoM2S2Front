@@ -22,7 +22,7 @@ if (!global.__users) {
     {
       id: "u-admin-default",
       name: "Super Admin",
-      email: "admin@campusmaster.test",
+      email: "admin1@unchk.edu.sn",
       password: "admin123",
       role: "admin",
       createdAt: "2024-01-01T00:00:00.000Z",
@@ -30,16 +30,16 @@ if (!global.__users) {
     {
       id: "u-teacher-default",
       name: "Professeur Test",
-      email: "teacher@test.com",
-      password: "teach123",
+      email: "tuteur14@unchk.edu.sn",
+      password: "tuteur123",
       role: "teacher",
       createdAt: new Date().toISOString()
     },
     {
       id: "u-student-default",
       name: "Étudiant Test",
-      email: "student@test.com",
-      password: "stud123",
+      email: "etudiant12@unchk.edu.sn",
+      password: "etudiant123",
       role: "student",
       formation: "Licence Informatique",
       createdAt: new Date().toISOString()
@@ -108,5 +108,78 @@ export function deleteUser(id: string) {
 
   const deleted = users[index];
   users.splice(index, 1);
+  return deleted;
+}
+
+export type Course = {
+  id: string;
+  title: string;
+  description: string;
+  teacherId: string;   // celui qui a créé le cours
+  files?: string[];    // PDFs, vidéos...
+  createdAt: string;
+};
+
+declare global {
+  var __courses: Course[] | undefined;
+}
+
+if (!global.__courses) {
+  global.__courses = [
+    {
+      id: "c-default-1",
+      title: "Introduction à JavaScript",
+      description: "Cours de base sur JS moderne.",
+      teacherId: "u-teacher-default",
+      createdAt: new Date().toISOString(),
+    }
+  ];
+}
+
+export const courses = global.__courses;
+
+// =============================
+// Helpers
+// =============================
+export function getCourses() {
+  return courses;
+}
+
+export function getCoursesByTeacher(teacherId: string) {
+  return courses.filter((c) => c.teacherId === teacherId);
+}
+
+export function getCourseById(id: string) {
+  return courses.find((c) => c.id === id);
+}
+
+export function createCourse(data: {
+  title: string;
+  description: string;
+  teacherId: string;
+}) {
+  const newCourse: Course = {
+    id: `c-${Date.now()}`,
+    title: data.title,
+    description: data.description,
+    teacherId: data.teacherId,
+    createdAt: new Date().toISOString(),
+  };
+  courses.push(newCourse);
+  return newCourse;
+}
+
+export function updateCourse(id: string, updates: Partial<Course>) {
+  const index = courses.findIndex((c) => c.id === id);
+  if (index === -1) throw new Error("Cours introuvable");
+  courses[index] = { ...courses[index], ...updates };
+  return courses[index];
+}
+
+export function deleteCourse(id: string) {
+  const index = courses.findIndex((c) => c.id === id);
+  if (index === -1) throw new Error("Cours introuvable");
+  const deleted = courses[index];
+  courses.splice(index, 1);
   return deleted;
 }

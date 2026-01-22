@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Trash, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
+import AddUserPopup from "../../../components/dashboard/AddUserPopup";
 
 export type UserRole = "admin" | "teacher" | "student";
 
@@ -62,9 +63,7 @@ export default function UsersListPage() {
         <CardHeader className="flex flex-row justify-between items-center">
           <CardTitle className="text-xl font-semibold">Liste des utilisateurs</CardTitle>
 
-          <Button onClick={() => router.push("/dashboard/admin/users/create")}>
-            + Ajouter un utilisateur
-          </Button>
+          <AddUserPopup />
         </CardHeader>
 
         <CardContent>

@@ -4,11 +4,13 @@ import {create }from "zustand";
 import { persist } from "zustand/middleware";
 
 type User = {
-  id: string;
+  userId: string;
   name: string;
+  lastName: string;
   email: string;
-  role: "admin" | "teacher" | "student";
-  formation?: string;
+  phone: string;
+  role: "ADMIN" | "TEACHER" | "STUDENT";
+  isActive: boolean;
 };
 
 type AuthState = {
