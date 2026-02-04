@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Bell, User, LogOut, Settings, User2, MessageCircle, Menu } from "lucide-react";
+import { Bell, LogOut, Settings, User2, MessageCircle, Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
@@ -12,8 +12,12 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Header({ user }: { user: any }) {
+export default function Header({ user,
+                                toggleSidebar
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ }: { user: any; toggleSidebar?: () => void }) {
   const router = useRouter();
 
   async function logout() {
@@ -22,18 +26,17 @@ export default function Header({ user }: { user: any }) {
   }
 
   return (
-    <header className="h-16 bg-white shadow flex items-center justify-between px-6">
+    <header className="h-24 w-full bg-white shadow flex items-center justify-between px-6">
 
       {/*LOGO + BIENVENUE */}
       <div className="flex items-center gap-4">
-        <Menu className="md:hidden" />
         <Image
           src="/4f984418-1b26-4f21-97be-1c6965c39022.jpg"
           alt="CampusMaster"
           width={40}
           height={40}
           priority
-        />
+          />
 
         <div className="leading-tight">
           <h2 className="text-sm text-gray-500">
@@ -43,6 +46,7 @@ export default function Header({ user }: { user: any }) {
             {user?.name} {user?.lastName}
           </p>
         </div>
+          <Menu className="ml-16 cursor-pointer" onClick={toggleSidebar} />
       </div>
 
       {/* ACTIONS */}
@@ -53,7 +57,8 @@ export default function Header({ user }: { user: any }) {
 
         <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer focus:outline-none">
-            <User className="w-6 h-6 text-gray-600" />
+            <div className="bg-green-500 size-10 rounded-full inline-flex items-center justify-center shrink-0 text-white font-bold">{user?.name?.charAt(0)}</div>
+            
           </DropdownMenuTrigger>
 
           <DropdownMenuContent className="w-56 mr-4 bg-white shadow-lg border border-gray-200">
@@ -78,7 +83,7 @@ export default function Header({ user }: { user: any }) {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
-              className="text-red-600"
+              className="text-[#ff0000]"
               onClick={logout}
             >
               <LogOut className="w-4 h-4 mr-2" />

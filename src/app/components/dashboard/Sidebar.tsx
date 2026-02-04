@@ -28,8 +28,10 @@ type MenuItem = {
 
 export default function Sidebar({
   role,
+  isOpen,
 }: {
   role: "admin" | "teacher" | "student";
+  isOpen: boolean;
 }) {
   const path = usePathname();
 
@@ -67,14 +69,16 @@ export default function Sidebar({
   return (
     <>
     
-    <aside className="hidden w-64 bg-blue-600 text-white p-6 md:flex flex-col">
+    <aside className={`bg-blue-600 text-white  transition-all duration-300
+    ${isOpen ? "w-64 p-6" : "w-0 p-0 overflow-hidden"}
+     hidden md:flex flex-col`}>
 
-      {/* 🔵 LOGO */}
+      {/* 🔵 LOGO
       <div className="flex flex-col items-center mb-8">
         <h1 className="mt-3 text-lg font-bold tracking-wide">
           CampusMaster
         </h1>
-      </div>
+      </div> */}
 
       {/* 🔵 MENU */}
       <nav className="space-y-1 flex-1">
